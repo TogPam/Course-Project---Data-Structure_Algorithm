@@ -1,32 +1,99 @@
 #include <bits/stdc++.h>
 #include <fstream>
-#include <string>
 #include <stdlib.h>
+#include <string>
 using namespace std;
 
 typedef struct Book
 {
-    char name_book[30];          // tên sách
-    char author[20];             // tác giả
-    int publishing_year;         // năm xuất bản
-    char publishing_company[20]; // công ty xuất bản
-    int quatity;                 // số lượng
-    char status[15];             // trạng thái
-    char describe[150];          // mô tả
-    char code[15];               // mã
-    char language[10];           // ngôn ngữ
-    char borrower[20];           // người mượn
+    string name_book;          // tên sách
+    string author;             // tác giả
+    string code;               // mã
+    string language;           // ngôn ngữ
+    string describe;           // mô tả
+    string status;             // trạng thái
+    string borrower;           // người mượn
+    int quantity;              // số lượng
+    int publishing_year;       // năm xuất bản
+    string publishing_company; // công ty xuất bản
+
+    Book() {}
+
+    Book(string name,
+         string au,
+         string _code,
+         string lang,
+         string des,
+         string _status,
+         string borrow,
+         int _quantity,
+         int year,
+         string company)
+    {
+        name_book = name;
+        author = au;
+        code = _code;
+        language = lang;
+        describe = des;
+        borrower = borrow;
+        quantity = _quantity;
+        publishing_year = year;
+        publishing_company = company;
+    }
+
+    void input_info_aBook()
+    {
+        fflush(stdin);
+        cout << "Ten sach: ";
+        getline(cin, name_book);
+        cout << "Tac gia: ";
+        getline(cin, author);
+        cout << "Ma: ";
+        getline(cin, code);
+        cout << "Mo ta: ";
+        getline(cin, describe);
+        cout << "Ngon ngu: ";
+        getline(cin, language);
+        cout << "Trang thai: ";
+        getline(cin, status);
+        cout << "Nguoi muon: ";
+        getline(cin, borrower);
+        cout << "So luong: ";
+        cin >> quantity;
+        cout << "Nam xuat ban: ";
+        cin >> (publishing_year);
+        fflush(stdin);
+        cout << "Nha xuat ban: ";
+        getline(cin, publishing_company);
+        fflush(stdin);
+    }
+
 } Book;
 
 typedef struct aBook_node
 {
     Book info;
     struct aBook_node *next;
+
+    void display_aBook_node()
+    {
+        cout << "Ten sach: " << info.name_book << endl;
+        cout << "Tac gia: " << info.author << endl;
+        cout << "Ma: " << info.code << endl;
+        cout << "Ngon ngu: " << info.language << endl;
+        cout << "Mo ta: " << info.describe << endl;
+        cout << "Trang thai: " << info.status << endl;
+        cout << "Nguoi muon: " << info.borrower << endl;
+        cout << "So luong: " << info.quantity << endl;
+        cout << "Nam xuat ban: " << info.publishing_year << endl;
+        cout << "Nha xuat ban: " << info.publishing_company << endl;
+    }
+
 } aBook_node;
 
 aBook_node *getBook(Book x)
 {
-    aBook_node *cre = (aBook_node *)malloc(sizeof(aBook_node));
+    aBook_node *cre = new aBook_node;
     if (!cre)
     {
         cout << "Cannot create a Book!" << endl;
@@ -53,20 +120,6 @@ int isEmpty_List_Book(List ls)
     return ls.head_Book == NULL ? 1 : 0;
 }
 
-void display_aBook_node(aBook_node *a)
-{
-    cout << "Ten sach: " << a->info.name_book << endl;
-    cout << "Tac gia :" << a->info.author << endl;
-    cout << "Ma: " << a->info.code << endl;
-    cout << "Mo ta: " << a->info.describe << endl;
-    cout << "Ngon ngu: " << a->info.language << endl;
-    cout << "Trang thai: " << a->info.status << endl;
-    cout << "Nguoi muon: " << a->info.borrower << endl;
-    cout << "So luong: " << a->info.quatity << endl;
-    cout << "Nam xuat ban: " << a->info.publishing_year << endl;
-    cout << "Nha xuat ban: " << a->info.publishing_company << endl;
-}
-
 void display_Book_list(Book_List ls)
 {
     if (isEmpty_List_Book(ls))
@@ -84,40 +137,68 @@ void display_Book_list(Book_List ls)
     }
 }
 
-void input_info_aBook(Book &a)
+int count_Books_inList(List ls)
 {
-    // fflush(std);
-    cout << "Ten sach: ";
-    gets(a.name_book);
-    cout << "Tac gia :";
-    gets(a.author);
-    cout << "Ma: ";
-    gets(a.code);
-    cout << "Mo ta: ";
-    gets(a.describe);
-    cout << "Ngon ngu: ";
-    gets(a.language);
-    cout << "Trang thai: ";
-    gets(a.status);
-    cout << "Nguoi muon: ";
-    gets(a.borrower);
-    cout << "So luong: ";
-    cin >> a.quatity;
-    cout << "Nam xuat ban: ";
-    cin >> (a.publishing_year);
-    fflush(stdin);
-    cout << "Nha xuat ban: ";
-    gets(a.publishing_company);
-    // return a;
+    int c = 0;
+    aBook_node *p = ls.head_Book;
+    while (p != NULL)
+    {
+        c++;
+        p = p->next;
+    }
+    return c;
 }
 
+void add_BooksTail(List &ls, Book a)
+{
+    aBook_node *p = getBook(a);
+    if (isEmpty_List_Book(ls))
+    {
+        ls.head_Book = ls.tail_Book = p;
+        return;
+    }
+    ls.tail_Book->next = p;
+    ls.tail_Book = p;
+    return;
+}
+
+void input_info_BookList_byFile(Book &a)
+{
+    fstream fileBook;
+    fileBook.open("Books.txt");
+    if (fileBook.is_open())
+    {
+        getline(fileBook, a.name_book);
+        getline(fileBook, a.author);
+        getline(fileBook, a.code);
+        getline(fileBook, a.language);
+        getline(fileBook, a.describe);
+        getline(fileBook, a.status);
+        getline(fileBook, a.borrower);
+        fileBook >> a.quantity;
+        fileBook >> a.publishing_year;
+        fileBook.ignore();
+        getline(fileBook, a.publishing_company);
+    }
+    fileBook.close();
+}
+void menu();
 int main()
 {
-    Book temp;
-    input_info_aBook(temp);
-    aBook_node *a = getBook(temp);
-    cout << endl;
-    display_aBook_node(a);
-    delete a;
+    Book p;
+    input_info_BookList_byFile(p);
+    aBook_node *b = getBook(p);
+    b->display_aBook_node;
+    delete b;
     return 0;
+}
+
+void menu()
+{
+    cout << "1. Xem danh sach" << endl;
+    cout << "2. Them sach" << endl;
+    cout << "3. Xem chi tiet sach" << endl;
+    cout << "4. Chinh sua sach" << endl;
+    cout << "5. Xoa sach" << endl;
+    cout << "6. Xoa danh sach" << endl;
 }
