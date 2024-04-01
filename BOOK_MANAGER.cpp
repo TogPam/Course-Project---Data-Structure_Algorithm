@@ -65,7 +65,6 @@ typedef struct Book
         fflush(stdin);
         cout << "Nha xuat ban: ";
         getline(cin, publishing_company);
-        fflush(stdin);
     }
 
 } Book;
@@ -188,7 +187,7 @@ int main()
     Book p;
     input_info_BookList_byFile(p);
     aBook_node *b = getBook(p);
-    b->display_aBook_node;
+    b->display_aBook_node();
     delete b;
     return 0;
 }
