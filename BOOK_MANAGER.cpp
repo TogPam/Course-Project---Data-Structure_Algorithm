@@ -128,16 +128,16 @@ void display_Book_list(List ls)
     }
     aBook_node *p = ls.head_Book;
     int i = 0;
-    printf("------------------------------------------------------------------------------------------------------------|\n");
-    printf("|STT|                         TEN                         |          CODE          |          LOAI          |\n");
+    cout << "                                          DANH SACH BOOKS\n";
+    cout << "+-----------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "|STT|\n";
     while (p != NULL)
     {
-        printf("|%3d|%50s   |%24s|%24s|\n", i, (p->info.name_book), (p->info.code), (p->info.type));
-        // cout << i << ". " << p->info.name_book << " CODE: " << p->info.code << " TYPE: " << p->info.type << endl;
+        cout << "|  " << i << "| " << p->info.name_book << "___CODE: " << p->info.code << "___TYPE: " << p->info.type << endl;
         i++;
         p = p->next;
     }
-    printf("------------------------------------------------------------------------------------------------------------|\n");
+    cout << "+-----------------------------------------------------------------------------------------------------------+" << endl;
 }
 
 int count_Books_inList(List ls)
@@ -186,22 +186,19 @@ void input_info_BookList_byFile(List &ls)
             fileBook >> a.publishing_year;
             fileBook.ignore();
             getline(fileBook, a.publishing_company);
-            // a.author = line;
-            // a.code = line;
-            // a.type = line;
-            // a.describe = line;
-            // a.status = line;
-            // a.borrower = line;
-            // fileBook >> a.quantity;
-            // fileBook >> a.publishing_year;
-            // fileBook.ignore();
-            // a.publishing_company = line;
             add_BooksTail(ls, a);
         }
     }
     fileBook.close();
 }
 
+aBook_node *node_at_pos(List st, int x)
+{
+}
+
+void display_aBook_node_inList(List ls, int x)
+{
+}
 void menu();
 int main()
 {
@@ -225,10 +222,11 @@ int main()
         }
         case 3:
         {
-            string code;
+            display_Book_list(ls);
+            int stt;
             cout << "\n\tSTT(?): ";
-            getline(cin, code);
-
+            cin >> stt;
+            display_aBook_node_inList(ls, stt);
             system("pause");
             break;
         }
