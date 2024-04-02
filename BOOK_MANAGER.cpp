@@ -6,6 +6,7 @@ using namespace std;
 
 typedef struct Book
 {
+    int stt;
     string name_book;          // tên sách
     string author;             // tác giả
     string code;               // mã
@@ -76,16 +77,17 @@ typedef struct aBook_node
 
     void display_aBook_node()
     {
-        cout << "Ten sach: " << info.name_book << endl;
-        cout << "Tac gia: " << info.author << endl;
-        cout << "Ma: " << info.code << endl;
-        cout << "The loai: " << info.type << endl;
-        cout << "Mo ta: " << info.describe << endl;
-        cout << "Trang thai: " << info.status << endl;
-        cout << "Nguoi muon: " << info.borrower << endl;
-        cout << "So luong: " << info.quantity << endl;
-        cout << "Nam xuat ban: " << info.publishing_year << endl;
-        cout << "Nha xuat ban: " << info.publishing_company << endl;
+        cout << "\n\tTen sach: " << info.name_book << endl;
+        cout << "\tTac gia: " << info.author << endl;
+        cout << "\tMa: " << info.code << endl;
+        cout << "\tThe loai: " << info.type << endl;
+        cout << "\tMo ta: " << info.describe << endl;
+        cout << "\tTrang thai: " << info.status << endl;
+        cout << "\tNguoi muon: " << info.borrower << endl;
+        cout << "\tSo luong: " << info.quantity << endl;
+        cout << "\tNam xuat ban: " << info.publishing_year << endl;
+        cout << "\tNha xuat ban: " << info.publishing_company << endl;
+        cout << "\n";
     }
 
 } aBook_node;
@@ -134,6 +136,7 @@ void display_Book_list(List ls)
     while (p != NULL)
     {
         cout << "|  " << i << "| " << p->info.name_book << "___CODE: " << p->info.code << "___TYPE: " << p->info.type << endl;
+        p->info.stt = i;
         i++;
         p = p->next;
     }
@@ -194,10 +197,29 @@ void input_info_BookList_byFile(List &ls)
 
 aBook_node *node_at_pos(List st, int x)
 {
+    aBook_node *p = st.head_Book;
+    if (p->info.stt == x)
+    {
+        return p;
+    }
+    p = st.tail_Book;
+    if (p->info.stt == x)
+    {
+        return p;
+    }
+    return NULL;
 }
 
 void display_aBook_node_inList(List ls, int x)
 {
+    aBook_node *p = node_at_pos(ls, x);
+    if (!p)
+    {
+        cout << "\n\t(!)Khong co stt nay\n"
+             << endl;
+        return;
+    }
+    p->display_aBook_node();
 }
 void menu();
 int main()
@@ -224,7 +246,7 @@ int main()
         {
             display_Book_list(ls);
             int stt;
-            cout << "\n\tSTT(?): ";
+            cout << "\n\tSTT SACH(?): ";
             cin >> stt;
             display_aBook_node_inList(ls, stt);
             system("pause");
