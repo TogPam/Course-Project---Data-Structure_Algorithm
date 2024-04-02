@@ -9,7 +9,7 @@ typedef struct Book
     string name_book;          // tên sách
     string author;             // tác giả
     string code;               // mã
-    string language;           // ngôn ngữ
+    string type;               // thể loại
     string describe;           // mô tả
     string status;             // trạng thái
     string borrower;           // người mượn
@@ -22,7 +22,7 @@ typedef struct Book
     Book(string name,
          string au,
          string _code,
-         string lang,
+         string _type,
          string des,
          string _status,
          string borrow,
@@ -33,7 +33,7 @@ typedef struct Book
         name_book = name;
         author = au;
         code = _code;
-        language = lang;
+        type = _type;
         describe = des;
         borrower = borrow;
         quantity = _quantity;
@@ -52,8 +52,8 @@ typedef struct Book
         getline(cin, code);
         cout << "Mo ta: ";
         getline(cin, describe);
-        cout << "Ngon ngu: ";
-        getline(cin, language);
+        cout << "The loai: ";
+        getline(cin, type);
         cout << "Trang thai: ";
         getline(cin, status);
         cout << "Nguoi muon: ";
@@ -79,7 +79,7 @@ typedef struct aBook_node
         cout << "Ten sach: " << info.name_book << endl;
         cout << "Tac gia: " << info.author << endl;
         cout << "Ma: " << info.code << endl;
-        cout << "Ngon ngu: " << info.language << endl;
+        cout << "The loai: " << info.type << endl;
         cout << "Mo ta: " << info.describe << endl;
         cout << "Trang thai: " << info.status << endl;
         cout << "Nguoi muon: " << info.borrower << endl;
@@ -130,7 +130,7 @@ void display_Book_list(Book_List ls)
     int i = 0;
     while (p != NULL)
     {
-        cout << i << ". " << p->info.name_book << " CODE: " << p->info.code << endl;
+        cout << i << ". " << p->info.name_book << " CODE: " << p->info.code << "TYPE: " << p->info.type << endl;
         i++;
         p = p->next;
     }
@@ -170,7 +170,7 @@ void input_info_BookList_byFile(Book &a)
         getline(fileBook, a.name_book);
         getline(fileBook, a.author);
         getline(fileBook, a.code);
-        getline(fileBook, a.language);
+        getline(fileBook, a.type);
         getline(fileBook, a.describe);
         getline(fileBook, a.status);
         getline(fileBook, a.borrower);
@@ -184,6 +184,13 @@ void input_info_BookList_byFile(Book &a)
 void menu();
 int main()
 {
+    // int c;
+    // do
+    // {
+    //     menu();
+    //     cout << "Chon: ";
+    //     cin >> c;
+    // } while (c != 0);
     Book p;
     input_info_BookList_byFile(p);
     aBook_node *b = getBook(p);
