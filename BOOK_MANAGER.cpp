@@ -119,7 +119,7 @@ int isEmpty_List_Book(List ls)
     return ls.head_Book == NULL ? 1 : 0;
 }
 
-void display_Book_list(Book_List ls)
+void display_Book_list(List ls)
 {
     if (isEmpty_List_Book(ls))
     {
@@ -128,12 +128,16 @@ void display_Book_list(Book_List ls)
     }
     aBook_node *p = ls.head_Book;
     int i = 0;
+    printf("------------------------------------------------------------------------------------------------------------|\n");
+    printf("|STT|                         TEN                         |          CODE          |          LOAI          |\n");
     while (p != NULL)
     {
-        cout << i << ". " << p->info.name_book << " CODE: " << p->info.code << "TYPE: " << p->info.type << endl;
+        printf("|%3d|%50s   |%24s|%24s|\n", i, (p->info.name_book), (p->info.code), (p->info.type));
+        // cout << i << ". " << p->info.name_book << " CODE: " << p->info.code << " TYPE: " << p->info.type << endl;
         i++;
         p = p->next;
     }
+    printf("------------------------------------------------------------------------------------------------------------|\n");
 }
 
 int count_Books_inList(List ls)
@@ -161,50 +165,88 @@ void add_BooksTail(List &ls, Book a)
     return;
 }
 
-void input_info_BookList_byFile(Book &a)
+void input_info_BookList_byFile(List &ls)
 {
-    fstream fileBook;
+    ifstream fileBook;
     fileBook.open("Books.txt");
+    Book a;
+    string line;
     if (fileBook.is_open())
     {
-        getline(fileBook, a.name_book);
-        getline(fileBook, a.author);
-        getline(fileBook, a.code);
-        getline(fileBook, a.type);
-        getline(fileBook, a.describe);
-        getline(fileBook, a.status);
-        getline(fileBook, a.borrower);
-        fileBook >> a.quantity;
-        fileBook >> a.publishing_year;
-        fileBook.ignore();
-        getline(fileBook, a.publishing_company);
+        while (getline(fileBook, line))
+        {
+            a.name_book = line;
+            getline(fileBook, a.author);
+            getline(fileBook, a.code);
+            getline(fileBook, a.type);
+            getline(fileBook, a.describe);
+            getline(fileBook, a.status);
+            getline(fileBook, a.borrower);
+            fileBook >> a.quantity;
+            fileBook >> a.publishing_year;
+            fileBook.ignore();
+            getline(fileBook, a.publishing_company);
+            // a.author = line;
+            // a.code = line;
+            // a.type = line;
+            // a.describe = line;
+            // a.status = line;
+            // a.borrower = line;
+            // fileBook >> a.quantity;
+            // fileBook >> a.publishing_year;
+            // fileBook.ignore();
+            // a.publishing_company = line;
+            add_BooksTail(ls, a);
+        }
     }
     fileBook.close();
 }
+
 void menu();
 int main()
 {
-    // int c;
-    // do
-    // {
-    //     menu();
-    //     cout << "Chon: ";
-    //     cin >> c;
-    // } while (c != 0);
-    Book p;
-    input_info_BookList_byFile(p);
-    aBook_node *b = getBook(p);
-    b->display_aBook_node();
-    delete b;
+    List ls;
+    initBook_List(ls);
+    input_info_BookList_byFile(ls);
+    int c;
+    do
+    {
+        menu();
+        cout << "\n\tChon(?): ";
+        cin >> c;
+        switch (c)
+        {
+        case 1:
+        {
+            display_Book_list(ls);
+            cout << "Co " << count_Books_inList(ls) << " cuon sach" << endl;
+            system("pause");
+            break;
+        }
+        case 3:
+        {
+            string code;
+            cout << "\n\tSTT(?): ";
+            getline(cin, code);
+
+            system("pause");
+            break;
+        }
+        }
+        system("cls");
+    } while (c != 0);
     return 0;
 }
 
 void menu()
 {
-    cout << "1. Xem danh sach" << endl;
-    cout << "2. Them sach" << endl;
-    cout << "3. Xem chi tiet sach" << endl;
-    cout << "4. Chinh sua sach" << endl;
-    cout << "5. Xoa sach" << endl;
-    cout << "6. Xoa danh sach" << endl;
+    cout << "\n\t      BOOK MANAGER" << endl;
+    cout << "\t+----------------------+" << endl;
+    cout << "\t|1. Xem danh sach      |" << endl;
+    cout << "\t|2. Them sach          |" << endl;
+    cout << "\t|3. Xem chi tiet sach  |" << endl;
+    cout << "\t|4. Chinh sua sach     |" << endl;
+    cout << "\t|5. Xoa sach           |" << endl;
+    cout << "\t|6. Xoa danh sach      |" << endl;
+    cout << "\t+----------------------+" << endl;
 }

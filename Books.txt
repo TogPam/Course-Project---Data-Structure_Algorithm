@@ -1,10 +1,40 @@
 Moving calse's Howl
 Diana Wynne Jones
 132ABC
-English
+Tieu Thuyet
 Howl and sophie are very funny
 Co san
 Khong Co
 12
 2005
 Nha Nam Company
+Nhung nguoi khon khon
+Victor Hugo
+AFE@12
+Tieu Thuyet
+Nhung nguoi khon kho
+Co san
+Khong Co
+19
+1955
+Nha Nam Company
+Data structure and Algorithm
+Stephen Hawking
+11TTPP
+Hoc Thuat
+Giai thuat va thuat toan
+Co san
+Khong Co
+10
+2018
+HUIT
+How to Win Friends and Influence People 
+Dale Carnegie
+15awd
+Self-help
+Dac nhan tam
+Co san
+Co
+1
+1995
+FAHASA
