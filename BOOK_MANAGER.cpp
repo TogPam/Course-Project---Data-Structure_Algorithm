@@ -119,7 +119,7 @@ int isEmpty_List_Book(List ls)
     return ls.head_Book == NULL ? 1 : 0;
 }
 
-void display_Book_list(Book_List ls)
+void display_Book_list(List ls)
 {
     if (isEmpty_List_Book(ls))
     {
@@ -130,7 +130,7 @@ void display_Book_list(Book_List ls)
     int i = 0;
     while (p != NULL)
     {
-        cout << i << ". " << p->info.name_book << " CODE: " << p->info.code << "TYPE: " << p->info.type << endl;
+        cout << i << ". " << p->info.name_book << " CODE: " << p->info.code << " TYPE: " << p->info.type << endl;
         i++;
         p = p->next;
     }
@@ -161,23 +161,29 @@ void add_BooksTail(List &ls, Book a)
     return;
 }
 
-void input_info_BookList_byFile(Book &a)
+void input_info_BookList_byFile(List &ls)
 {
-    fstream fileBook;
+    ifstream fileBook;
     fileBook.open("Books.txt");
+    Book a;
+    string line;
     if (fileBook.is_open())
     {
-        getline(fileBook, a.name_book);
-        getline(fileBook, a.author);
-        getline(fileBook, a.code);
-        getline(fileBook, a.type);
-        getline(fileBook, a.describe);
-        getline(fileBook, a.status);
-        getline(fileBook, a.borrower);
-        fileBook >> a.quantity;
-        fileBook >> a.publishing_year;
-        fileBook.ignore();
-        getline(fileBook, a.publishing_company);
+        while (getline(fileBook, line))
+        {
+            a.name_book = line;
+            getline(fileBook, a.author);
+            getline(fileBook, a.code);
+            getline(fileBook, a.type);
+            getline(fileBook, a.describe);
+            getline(fileBook, a.status);
+            getline(fileBook, a.borrower);
+            fileBook >> a.quantity;
+            fileBook >> a.publishing_year;
+            fileBook.ignore();
+            getline(fileBook, a.publishing_company);
+            add_BooksTail(ls, a);
+        }
     }
     fileBook.close();
 }
@@ -191,11 +197,11 @@ int main()
     //     cout << "Chon: ";
     //     cin >> c;
     // } while (c != 0);
-    Book p;
-    input_info_BookList_byFile(p);
-    aBook_node *b = getBook(p);
-    b->display_aBook_node();
-    delete b;
+    List ls;
+    initBook_List(ls);
+    input_info_BookList_byFile(ls);
+    display_Book_list(ls);
+    cout << "Co " << count_Books_inList(ls) << " cuon sach" << endl;
     return 0;
 }
 
