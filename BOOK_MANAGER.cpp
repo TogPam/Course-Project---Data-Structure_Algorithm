@@ -6,6 +6,7 @@ using namespace std;
 
 typedef struct Book
 {
+    int stt;
     string name_book;          // tên sách
     string author;             // tác giả
     string code;               // mã
@@ -76,16 +77,17 @@ typedef struct aBook_node
 
     void display_aBook_node()
     {
-        cout << "Ten sach: " << info.name_book << endl;
-        cout << "Tac gia: " << info.author << endl;
-        cout << "Ma: " << info.code << endl;
-        cout << "The loai: " << info.type << endl;
-        cout << "Mo ta: " << info.describe << endl;
-        cout << "Trang thai: " << info.status << endl;
-        cout << "Nguoi muon: " << info.borrower << endl;
-        cout << "So luong: " << info.quantity << endl;
-        cout << "Nam xuat ban: " << info.publishing_year << endl;
-        cout << "Nha xuat ban: " << info.publishing_company << endl;
+        cout << "\n\tTen sach: " << info.name_book << endl;
+        cout << "\tTac gia: " << info.author << endl;
+        cout << "\tMa: " << info.code << endl;
+        cout << "\tThe loai: " << info.type << endl;
+        cout << "\tMo ta: " << info.describe << endl;
+        cout << "\tTrang thai: " << info.status << endl;
+        cout << "\tNguoi muon: " << info.borrower << endl;
+        cout << "\tSo luong: " << info.quantity << endl;
+        cout << "\tNam xuat ban: " << info.publishing_year << endl;
+        cout << "\tNha xuat ban: " << info.publishing_company << endl;
+        cout << "\n";
     }
 
 } aBook_node;
@@ -128,16 +130,17 @@ void display_Book_list(List ls)
     }
     aBook_node *p = ls.head_Book;
     int i = 0;
-    printf("------------------------------------------------------------------------------------------------------------|\n");
-    printf("|STT|                         TEN                         |          CODE          |          LOAI          |\n");
+    cout << "                                          DANH SACH BOOKS\n";
+    cout << "+-----------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "|STT|\n";
     while (p != NULL)
     {
-        printf("|%3d|%50s   |%24s|%24s|\n", i, (p->info.name_book), (p->info.code), (p->info.type));
-        // cout << i << ". " << p->info.name_book << " CODE: " << p->info.code << " TYPE: " << p->info.type << endl;
+        cout << "|  " << i << "| " << p->info.name_book << "___CODE: " << p->info.code << "___TYPE: " << p->info.type << endl;
+        p->info.stt = i;
         i++;
         p = p->next;
     }
-    printf("------------------------------------------------------------------------------------------------------------|\n");
+    cout << "+-----------------------------------------------------------------------------------------------------------+" << endl;
 }
 
 int count_Books_inList(List ls)
@@ -186,22 +189,43 @@ void input_info_BookList_byFile(List &ls)
             fileBook >> a.publishing_year;
             fileBook.ignore();
             getline(fileBook, a.publishing_company);
-            // a.author = line;
-            // a.code = line;
-            // a.type = line;
-            // a.describe = line;
-            // a.status = line;
-            // a.borrower = line;
-            // fileBook >> a.quantity;
-            // fileBook >> a.publishing_year;
-            // fileBook.ignore();
-            // a.publishing_company = line;
             add_BooksTail(ls, a);
         }
     }
     fileBook.close();
 }
 
+aBook_node *node_at_pos(List st, int x)
+{
+    aBook_node *p = st.head_Book;
+    if (p->info.stt == x)
+    {
+        return p;
+    }
+    if (st.tail_Book->info.stt == x)
+    {
+        return st.tail_Book;
+    }
+    while (x != 0)
+    {
+        p = p->next;
+        x--;
+    }
+    return p;
+    return NULL;
+}
+
+void display_aBook_node_inList(List ls, int x)
+{
+    aBook_node *p = node_at_pos(ls, x);
+    if (!p)
+    {
+        cout << "\n\t(!)Khong co stt nay\n"
+             << endl;
+        return;
+    }
+    p->display_aBook_node();
+}
 void menu();
 int main()
 {
@@ -225,10 +249,11 @@ int main()
         }
         case 3:
         {
-            string code;
-            cout << "\n\tSTT(?): ";
-            getline(cin, code);
-
+            display_Book_list(ls);
+            int stt;
+            cout << "\n\tSTT SACH(?): ";
+            cin >> stt;
+            display_aBook_node_inList(ls, stt);
             system("pause");
             break;
         }
