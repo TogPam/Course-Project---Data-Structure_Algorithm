@@ -130,17 +130,17 @@ void display_Book_list(List ls)
     }
     aBook_node *p = ls.head_Book;
     int i = 0;
-    cout << "                                          DANH SACH BOOKS\n";
-    cout << "+-----------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "                                                           DANH SACH BOOKS\n";
+    cout << "+-------------------------------------------------------------------------------------------------------------------+" << endl;
     cout << "|STT|\n";
     while (p != NULL)
     {
-        cout << "|  " << i << "| " << p->info.name_book << "___CODE: " << p->info.code << "___TYPE: " << p->info.type << endl;
+        cout << "|" << i << " | " << p->info.name_book << "___CODE: " << p->info.code << " ___LOAI: " << p->info.type << " __Trang Thai: " << p->info.status << "__So luong: " << p->info.quantity << endl;
         p->info.stt = i;
         i++;
         p = p->next;
     }
-    cout << "+-----------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "+-------------------------------------------------------------------------------------------------------------------+" << endl;
 }
 
 int count_Books_inList(List ls)
@@ -195,6 +195,29 @@ void input_info_BookList_byFile(List &ls)
     fileBook.close();
 }
 
+void add_abook_intoFile_List(List &ls, Book a)
+{
+    a.input_info_aBook();
+    add_BooksTail(ls, a);
+    ofstream fileBook;
+    fileBook.open("Books.txt", fstream::app);
+    if (fileBook.is_open())
+    {
+        fileBook << endl;
+        fileBook << a.name_book << endl;
+        fileBook << a.author << endl;
+        fileBook << a.code << endl;
+        fileBook << a.type << endl;
+        fileBook << a.describe << endl;
+        fileBook << a.status << endl;
+        fileBook << a.borrower << endl;
+        fileBook << a.quantity << endl;
+        fileBook << a.publishing_year << endl;
+        fileBook << a.publishing_company;
+    }
+    fileBook.close();
+}
+
 aBook_node *node_at_pos(List st, int x)
 {
     aBook_node *p = st.head_Book;
@@ -244,6 +267,13 @@ int main()
         {
             display_Book_list(ls);
             cout << "Co " << count_Books_inList(ls) << " cuon sach" << endl;
+            system("pause");
+            break;
+        }
+        case 2:
+        {
+            Book a;
+            add_abook_intoFile_List(ls, a);
             system("pause");
             break;
         }
