@@ -202,11 +202,16 @@ aBook_node *node_at_pos(List st, int x)
     {
         return p;
     }
-    p = st.tail_Book;
-    if (p->info.stt == x)
+    if (st.tail_Book->info.stt == x)
     {
-        return p;
+        return st.tail_Book;
     }
+    while (x != 0)
+    {
+        p = p->next;
+        x--;
+    }
+    return p;
     return NULL;
 }
 
