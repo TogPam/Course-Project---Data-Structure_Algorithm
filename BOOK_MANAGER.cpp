@@ -125,7 +125,7 @@ void display_Book_list(List ls)
 {
     if (isEmpty_List_Book(ls))
     {
-        cout << "The Book List is EMPTY!" << endl;
+        cout << "\n\t(!)The Book List is EMPTY\n\n";
         return;
     }
     aBook_node *p = ls.head_Book;
@@ -318,6 +318,40 @@ void delete_aBookNode(List &ls, int stt)
     }
 }
 
+void displayBook_baseType(List ls, string type)
+{
+    aBook_node *p = ls.head_Book;
+    cout << "                                                           DANH SACH BOOKS\n";
+    cout << "+-------------------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "|STT|\n";
+    while (p != NULL)
+    {
+        if (p->info.type == type)
+        {
+            cout << "|" << p->info.stt << " | " << p->info.name_book << "___CODE: " << p->info.code << " ___LOAI: " << p->info.type << " __Trang Thai: " << p->info.status << "__So luong: " << p->info.quantity << endl;
+        }
+        p = p->next;
+    }
+    cout << "+-------------------------------------------------------------------------------------------------------------------+" << endl;
+}
+
+void displayBorrowerList(List ls, string status)
+{
+    aBook_node *p = ls.head_Book;
+    cout << "                                                           DANH SACH BOOKS\n";
+    cout << "+-------------------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "|STT|\n";
+    while (p != NULL)
+    {
+        if (p->info.status == status)
+        {
+            cout << "|" << p->info.stt << " | " << p->info.name_book << "___CODE: " << p->info.code << " ___LOAI: " << p->info.type << " __Trang Thai: " << p->info.status << "__So luong: " << p->info.quantity << endl;
+        }
+        p = p->next;
+    }
+    cout << "+-------------------------------------------------------------------------------------------------------------------+" << endl;
+}
+
 void menu();
 int main()
 {
@@ -334,7 +368,7 @@ int main()
         case 1:
         {
             display_Book_list(ls);
-            cout << "Co " << count_Books_inList(ls) << " cuon sach" << endl;
+            cout << "\n\tCo " << count_Books_inList(ls) << " cuon sach" << endl;
             system("pause");
             break;
         }
@@ -364,10 +398,63 @@ int main()
         }
         case 5:
         {
-
+            cout << "\n\t1.Tieu Thuyet\n";
+            cout << "\t2.Hoc Thuat\n";
+            cout << "\t3.Self-help\n";
+            cout << "\t4.Gia Tuong\n\n";
+            int t;
+            cout << "\t\t(?)Chon: ";
+            cin >> t;
+            switch (t)
+            {
+            case 1:
+            {
+                displayBook_baseType(ls, "Tieu Thuyet");
+                break;
+            }
+            case 2:
+            {
+                displayBook_baseType(ls, "Hoc Thuat");
+                break;
+            }
+            case 3:
+            {
+                displayBook_baseType(ls, "Self-help");
+                break;
+            }
+            case 4:
+            {
+                displayBook_baseType(ls, "Gia Tuong");
+                break;
+            }
+            }
+            system("pause");
             break;
         }
         case 6:
+        {
+            cout << "\n\t1.Co san\n";
+            cout << "\t2.Da muon\n\n";
+            int t;
+            cout << "\t(?)Chon: ";
+            cin >> t;
+            switch (t)
+            {
+            case 1:
+            {
+                displayBorrowerList(ls, "Co san");
+                break;
+            }
+            case 2:
+            {
+                displayBorrowerList(ls, "Khong");
+                break;
+            }
+                system("pause");
+            }
+            break;
+        }
+        case 7:
         {
             display_Book_list(ls);
             int stt;
@@ -391,9 +478,10 @@ void menu()
     cout << "\t|2. Them sach tu FILE     |" << endl;
     cout << "\t|3. Them sach tu ban phim |" << endl;
     cout << "\t|4. Xem chi tiet sach     |" << endl;
-    cout << "\t|5. Danh sach nguoi muon  |" << endl;
-    cout << "\t|6. Xoa sach              |" << endl;
-    cout << "\t|7. Xoa danh sach         |" << endl;
+    cout << "\t|5. Danh sach phan loai   |" << endl;
+    cout << "\t|6. Danh sach trang thai  |" << endl;
+    cout << "\t|7. Xoa sach              |" << endl;
+    cout << "\t|8. Xoa danh sach         |" << endl;
     cout << "\t|  0. THOAT               |" << endl;
     cout << "\t+-------------------------+" << endl;
 }
