@@ -249,12 +249,80 @@ void display_aBook_node_inList(List ls, int x)
     }
     p->display_aBook_node();
 }
+
+void deleteHead(List &ls)
+{
+    if (isEmpty_List_Book(ls))
+        return;
+    aBook_node *temp = ls.head_Book;
+    ls.head_Book = ls.head_Book->next;
+    temp = NULL;
+    delete temp;
+    return;
+}
+
+void deleteTail(List &ls)
+{
+    if (isEmpty_List_Book(ls))
+        return;
+    if (ls.head_Book == ls.tail_Book)
+    {
+        ls.head_Book = ls.tail_Book = NULL;
+        return;
+    }
+    aBook_node *p = ls.head_Book;
+    while (p != ls.tail_Book)
+    {
+        p = p->next;
+    }
+    aBook_node *temp = ls.tail_Book;
+    ls.tail_Book = p;
+    ls.tail_Book->next = NULL;
+    delete temp;
+    return;
+}
+
+void deleteP(List &ls, int stt)
+{
+    aBook_node *p = ls.head_Book;
+    while (p->next->info.stt != stt)
+    {
+        p = p->next;
+    }
+    aBook_node *temp = p->next;
+    p->next = temp->next;
+    temp->next = NULL;
+    delete temp;
+    return;
+}
+
+void delete_aBookNode(List &ls, int stt)
+{
+    if (isEmpty_List_Book(ls))
+        return;
+    if (stt == 0)
+    {
+        deleteHead(ls);
+        return;
+    }
+    if (stt == count_Books_inList(ls))
+    {
+        deleteTail(ls);
+        return;
+    }
+    else
+    {
+
+        deleteP(ls, stt);
+        return;
+    }
+}
+
 void menu();
 int main()
 {
     List ls;
     initBook_List(ls);
-    input_info_BookList_byFile(ls);
     int c;
     do
     {
@@ -272,18 +340,40 @@ int main()
         }
         case 2:
         {
+            input_info_BookList_byFile(ls);
+            cout << "\n\tDa them danh sach tu FILE\n";
+            system("pause");
+            break;
+        }
+        case 3:
+        {
             Book a;
             add_abook_intoFile_List(ls, a);
             system("pause");
             break;
         }
-        case 3:
+        case 4:
         {
             display_Book_list(ls);
             int stt;
             cout << "\n\tSTT SACH(?): ";
             cin >> stt;
             display_aBook_node_inList(ls, stt);
+            system("pause");
+            break;
+        }
+        case 5:
+        {
+
+            break;
+        }
+        case 6:
+        {
+            display_Book_list(ls);
+            int stt;
+            cout << "\n\tSTT SACH(?): ";
+            cin >> stt;
+            delete_aBookNode(ls, stt);
             system("pause");
             break;
         }
@@ -296,12 +386,14 @@ int main()
 void menu()
 {
     cout << "\n\t      BOOK MANAGER" << endl;
-    cout << "\t+----------------------+" << endl;
-    cout << "\t|1. Xem danh sach      |" << endl;
-    cout << "\t|2. Them sach          |" << endl;
-    cout << "\t|3. Xem chi tiet sach  |" << endl;
-    cout << "\t|4. Chinh sua sach     |" << endl;
-    cout << "\t|5. Xoa sach           |" << endl;
-    cout << "\t|6. Xoa danh sach      |" << endl;
-    cout << "\t+----------------------+" << endl;
+    cout << "\t+-------------------------+" << endl;
+    cout << "\t|1. Xem danh sach         |" << endl;
+    cout << "\t|2. Them sach tu FILE     |" << endl;
+    cout << "\t|3. Them sach tu ban phim |" << endl;
+    cout << "\t|4. Xem chi tiet sach     |" << endl;
+    cout << "\t|5. Danh sach nguoi muon  |" << endl;
+    cout << "\t|6. Xoa sach              |" << endl;
+    cout << "\t|7. Xoa danh sach         |" << endl;
+    cout << "\t|  0. THOAT               |" << endl;
+    cout << "\t+-------------------------+" << endl;
 }
