@@ -170,6 +170,11 @@ void add_BooksTail(List &ls, Book a)
 
 void input_info_BookList_byFile(List &ls)
 {
+    if (!isEmpty_List_Book(ls))
+    {
+        cout << "\n\t(!)Da co danh sach roi\n";
+        return;
+    }
     ifstream fileBook;
     fileBook.open("Books.txt");
     Book a;
@@ -197,6 +202,7 @@ void input_info_BookList_byFile(List &ls)
 
 void add_abook_intoFile_List(List &ls, Book a)
 {
+
     a.input_info_aBook();
     add_BooksTail(ls, a);
     ofstream fileBook;
@@ -296,6 +302,36 @@ void deleteP(List &ls, int stt)
     return;
 }
 
+void listToFile(List &ls)
+{
+    if (isEmpty_List_Book(ls))
+    {
+        cout << "\n\t(!)The Book List is EMPTY\n\n";
+        return;
+    }
+    aBook_node *a = ls.head_Book;
+    fstream fileBook;
+    fileBook.open("Books.txt", ios::out);
+    while (a != NULL)
+    {
+        if (fileBook.is_open())
+        {
+            fileBook << a->info.name_book << endl;
+            fileBook << a->info.author << endl;
+            fileBook << a->info.code << endl;
+            fileBook << a->info.type << endl;
+            fileBook << a->info.describe << endl;
+            fileBook << a->info.status << endl;
+            fileBook << a->info.borrower << endl;
+            fileBook << a->info.quantity << endl;
+            fileBook << a->info.publishing_year << endl;
+            fileBook << a->info.publishing_company << endl;
+        }
+        a = a->next;
+    }
+    fileBook.close();
+}
+
 void delete_aBookNode(List &ls, int stt)
 {
     if (isEmpty_List_Book(ls))
@@ -316,6 +352,7 @@ void delete_aBookNode(List &ls, int stt)
         deleteP(ls, stt);
         return;
     }
+    listToFile(ls);
 }
 
 void displayBook_baseType(List ls, string type)
@@ -376,6 +413,8 @@ int main()
         {
             input_info_BookList_byFile(ls);
             cout << "\n\tDa them danh sach tu FILE\n";
+            display_Book_list(ls);
+            cout << "\n\tCo " << count_Books_inList(ls) << " cuon sach" << endl;
             system("pause");
             break;
         }
@@ -388,79 +427,95 @@ int main()
         }
         case 4:
         {
-            display_Book_list(ls);
-            int stt;
-            cout << "\n\tSTT SACH(?): ";
-            cin >> stt;
-            display_aBook_node_inList(ls, stt);
+            if (!isEmpty_List_Book(ls))
+            {
+
+                display_Book_list(ls);
+                int stt;
+                cout << "\n\tSTT SACH(?): ";
+                cin >> stt;
+                display_aBook_node_inList(ls, stt);
+            }
             system("pause");
             break;
         }
         case 5:
         {
-            cout << "\n\t1.Tieu Thuyet\n";
-            cout << "\t2.Hoc Thuat\n";
-            cout << "\t3.Self-help\n";
-            cout << "\t4.Gia Tuong\n\n";
-            int t;
-            cout << "\t\t(?)Chon: ";
-            cin >> t;
-            switch (t)
+            if (!isEmpty_List_Book(ls))
             {
-            case 1:
-            {
-                displayBook_baseType(ls, "Tieu Thuyet");
-                break;
-            }
-            case 2:
-            {
-                displayBook_baseType(ls, "Hoc Thuat");
-                break;
-            }
-            case 3:
-            {
-                displayBook_baseType(ls, "Self-help");
-                break;
-            }
-            case 4:
-            {
-                displayBook_baseType(ls, "Gia Tuong");
-                break;
-            }
+                cout << "\n\t1.Tieu Thuyet\n";
+                cout << "\t2.Hoc Thuat\n";
+                cout << "\t3.Self-help\n";
+                cout << "\t4.Gia Tuong\n\n";
+                int t;
+                cout << "\t\t(?)Chon: ";
+                cin >> t;
+                switch (t)
+                {
+                case 1:
+                {
+                    displayBook_baseType(ls, "Tieu Thuyet");
+                    break;
+                }
+                case 2:
+                {
+                    displayBook_baseType(ls, "Hoc Thuat");
+                    break;
+                }
+                case 3:
+                {
+                    displayBook_baseType(ls, "Self-help");
+                    break;
+                }
+                case 4:
+                {
+                    displayBook_baseType(ls, "Gia Tuong");
+                    break;
+                }
+                }
             }
             system("pause");
             break;
         }
         case 6:
         {
-            cout << "\n\t1.Co san\n";
-            cout << "\t2.Da muon\n\n";
-            int t;
-            cout << "\t(?)Chon: ";
-            cin >> t;
-            switch (t)
+            if (!isEmpty_List_Book(ls))
             {
-            case 1:
-            {
-                displayBorrowerList(ls, "Co san");
-                break;
+
+                cout << "\n\t1.Co san\n";
+                cout << "\t2.Da muon\n\n";
+                int t;
+                cout << "\t(?)Chon: ";
+                cin >> t;
+                switch (t)
+                {
+                case 1:
+                {
+                    displayBorrowerList(ls, "Co san");
+                    break;
+                }
+                case 2:
+                {
+                    displayBorrowerList(ls, "Khong");
+                    break;
+                }
+                }
             }
-            case 2:
-            {
-                displayBorrowerList(ls, "Khong");
-                break;
-            }
-                system("pause");
-            }
+            system("pause");
             break;
         }
         case 7:
         {
             display_Book_list(ls);
-            int stt;
-            cout << "\n\tSTT SACH(?): ";
-            cin >> stt;
-            delete_aBookNode(ls, stt);
+            if (!isEmpty_List_Book(ls))
+            {
+
+                int stt;
+                cout << "\n\t(*)LUU Y: VIEC XOA SACH SE ANH HUONG DEN FILE\n";
+                cout << "\n\t(?)STT SACH MUON XOA: ";
+                cin >> stt;
+                delete_aBookNode(ls, stt);
+            }
             system("pause");
             break;
         }
