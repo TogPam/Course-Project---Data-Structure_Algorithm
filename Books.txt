@@ -1,150 +1,90 @@
 Moving calse's Howl
 Diana Wynne Jones
-132ABC
+159
 Tieu Thuyet
-Howl and sophie are very funny
-Co san
-Khong Co
-12
 2005
 Nha Nam Company
 Nhung nguoi khon khon
 Victor Hugo
-AFE@12
+002
 Tieu Thuyet
-Nhung nguoi khon kho
-Co san
-Khong Co
-19
 1955
 Nha Nam Company
 Data structure and Algorithm
 Stephen Hawking
-11TTPP
+789
 Hoc Thuat
-Giai thuat va thuat toan
-Co san
-Khong Co
-10
 2018
 HUIT
 How to win Friends and Influence People 
 Dale Carnegie
-15awd
+452
 Self-help
-Dac nhan tam
-Co san
-Co
-1
 1995
 FAHASA
 The Stoic Challenge
 William B.Irvine
-AAATT
+749
 Hoc Thuat
-Chu Nghia Khac Ky
-Co san
-Khong
-1
 2019
 Nha Nam
 Pride and Prejudice
 Jane Austen
-UKAA
+888
 Tieu Thuyet
-Kieu Hanh va Dinh Kien
-Co san
-Khong
-2
 1888
 Nha Nam
 Clean Code
 "Robert C. Martin
-CC001
-Programming
-A Handbook of Agile Software Craftsmanship
-Co san
-Khong
-5
+799
+Hoc Thuat
 2008
 Prentice Hall
 The Great Gatsby
 F. Scott Fitzgerald
-GG002
+448
 Gia Tuong
-Tieu Thuyet
-Khong
-John Doe
-2
 1960
 J. B. Lippincott & Co.
 1984
 George Orwell
-N1984
-Phan Dia Dang
+127
 Tieu Thuyet
-Co san
-Khong
-4
 1949
 Secker & Warburg
 The Catcher in the Rye
 J.D. Salinger
-CH004
+445
 Gia Tuong
-Tieu Thuyet
-Co san
-Khong
-1
 1951
 Little, Brown and Company
 The Hobbit
 J.R.R. Tolkien
-TH005
+696
 Gia Tuong
-Su Tro Lai
-Co san
-Khong
-7
 1937
 Allen & Unwin
 The Da Vinci Code
 Dan Brown
-DVC006
-Bi an 
+787
 Tieu Thuyet
-Co san
-Khong
-4
 2003
 Doubleday
 The Alchemist
 Paulo Coelho
-AL008
+555
 Gia Tuong
-Tieu Thuyet
-Co san
-Khong
-8
 1988
 HarperCollins
 Harry Potter and the Sorcerer's Stone
 J.K. Rowling
-HP001
+993
 Gia Tuong
-Tieu Thuyet
-Khong
-Jane Smith
-2
 1997
 Bloomsbury
 25 xu huong cong nghe
 Bernard Marr
-TTBTB
+454
 Hoc Thuat
-Dinh hinh cong nghe
-Khong
-Thong
-1
 2022
 Thong Tin

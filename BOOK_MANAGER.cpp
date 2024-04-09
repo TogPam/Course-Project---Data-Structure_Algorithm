@@ -11,36 +11,8 @@ typedef struct Book
     string author;             // tác giả
     string code;               // mã
     string type;               // thể loại
-    string describe;           // mô tả
-    string status;             // trạng thái
-    string borrower;           // người mượn
-    int quantity;              // số lượng
     int publishing_year;       // năm xuất bản
     string publishing_company; // công ty xuất bản
-
-    Book() {}
-
-    Book(string name,
-         string au,
-         string _code,
-         string _type,
-         string des,
-         string _status,
-         string borrow,
-         int _quantity,
-         int year,
-         string company)
-    {
-        name_book = name;
-        author = au;
-        code = _code;
-        type = _type;
-        describe = des;
-        borrower = borrow;
-        quantity = _quantity;
-        publishing_year = year;
-        publishing_company = company;
-    }
 
     void input_info_aBook()
     {
@@ -51,16 +23,8 @@ typedef struct Book
         getline(cin, author);
         cout << "Ma: ";
         getline(cin, code);
-        cout << "Mo ta: ";
-        getline(cin, describe);
         cout << "The loai: ";
         getline(cin, type);
-        cout << "Trang thai: ";
-        getline(cin, status);
-        cout << "Nguoi muon: ";
-        getline(cin, borrower);
-        cout << "So luong: ";
-        cin >> quantity;
         cout << "Nam xuat ban: ";
         cin >> (publishing_year);
         fflush(stdin);
@@ -80,11 +44,6 @@ typedef struct aBook_node
         cout << "\n\tTen sach: " << info.name_book << endl;
         cout << "\tTac gia: " << info.author << endl;
         cout << "\tMa: " << info.code << endl;
-        cout << "\tThe loai: " << info.type << endl;
-        cout << "\tMo ta: " << info.describe << endl;
-        cout << "\tTrang thai: " << info.status << endl;
-        cout << "\tNguoi muon: " << info.borrower << endl;
-        cout << "\tSo luong: " << info.quantity << endl;
         cout << "\tNam xuat ban: " << info.publishing_year << endl;
         cout << "\tNha xuat ban: " << info.publishing_company << endl;
         cout << "\n";
@@ -135,7 +94,7 @@ void display_Book_list(List ls)
     cout << "|STT|\n";
     while (p != NULL)
     {
-        cout << "|" << i << " | " << p->info.name_book << "___CODE: " << p->info.code << " ___LOAI: " << p->info.type << " __Trang Thai: " << p->info.status << "__So luong: " << p->info.quantity << endl;
+        cout << "|" << i << " | " << p->info.name_book << "___TAC GIA: " << p->info.author << " ___LOAI: " << p->info.type << " __NHA XB: " << p->info.publishing_company << "__NXB: " << p->info.publishing_year << endl;
         p->info.stt = i;
         i++;
         p = p->next;
@@ -187,10 +146,6 @@ void input_info_BookList_byFile(List &ls)
             getline(fileBook, a.author);
             getline(fileBook, a.code);
             getline(fileBook, a.type);
-            getline(fileBook, a.describe);
-            getline(fileBook, a.status);
-            getline(fileBook, a.borrower);
-            fileBook >> a.quantity;
             fileBook >> a.publishing_year;
             fileBook.ignore();
             getline(fileBook, a.publishing_company);
@@ -214,10 +169,6 @@ void add_abook_intoFile_List(List &ls, Book a)
         fileBook << a.author << endl;
         fileBook << a.code << endl;
         fileBook << a.type << endl;
-        fileBook << a.describe << endl;
-        fileBook << a.status << endl;
-        fileBook << a.borrower << endl;
-        fileBook << a.quantity << endl;
         fileBook << a.publishing_year << endl;
         fileBook << a.publishing_company;
     }
@@ -320,10 +271,6 @@ void listToFile(List &ls)
             fileBook << a->info.author << endl;
             fileBook << a->info.code << endl;
             fileBook << a->info.type << endl;
-            fileBook << a->info.describe << endl;
-            fileBook << a->info.status << endl;
-            fileBook << a->info.borrower << endl;
-            fileBook << a->info.quantity << endl;
             fileBook << a->info.publishing_year << endl;
             fileBook << a->info.publishing_company << endl;
         }
@@ -365,24 +312,7 @@ void displayBook_baseType(List ls, string type)
     {
         if (p->info.type == type)
         {
-            cout << "|" << p->info.stt << " | " << p->info.name_book << "___CODE: " << p->info.code << " ___LOAI: " << p->info.type << " __Trang Thai: " << p->info.status << "__So luong: " << p->info.quantity << endl;
-        }
-        p = p->next;
-    }
-    cout << "+-------------------------------------------------------------------------------------------------------------------+" << endl;
-}
-
-void displayBorrowerList(List ls, string status)
-{
-    aBook_node *p = ls.head_Book;
-    cout << "                                                           DANH SACH BOOKS\n";
-    cout << "+-------------------------------------------------------------------------------------------------------------------+" << endl;
-    cout << "|STT|\n";
-    while (p != NULL)
-    {
-        if (p->info.status == status)
-        {
-            cout << "|" << p->info.stt << " | " << p->info.name_book << "___CODE: " << p->info.code << " ___LOAI: " << p->info.type << " __Trang Thai: " << p->info.status << "__So luong: " << p->info.quantity << endl;
+            cout << "|" << p->info.stt << " | " << p->info.name_book << "___TAC GIA: " << p->info.author << " ___NAM XB: " << p->info.publishing_year << " __NXB: " << p->info.publishing_company << endl;
         }
         p = p->next;
     }
@@ -477,34 +407,11 @@ int main()
             system("pause");
             break;
         }
-        case 6:
+        case 7:
         {
-            if (!isEmpty_List_Book(ls))
-            {
-
-                cout << "\n\t1.Co san\n";
-                cout << "\t2.Da muon\n\n";
-                int t;
-                cout << "\t(?)Chon: ";
-                cin >> t;
-                switch (t)
-                {
-                case 1:
-                {
-                    displayBorrowerList(ls, "Co san");
-                    break;
-                }
-                case 2:
-                {
-                    displayBorrowerList(ls, "Khong");
-                    break;
-                }
-                }
-            }
-            system("pause");
             break;
         }
-        case 7:
+        case 6:
         {
             display_Book_list(ls);
             if (!isEmpty_List_Book(ls))
@@ -534,9 +441,8 @@ void menu()
     cout << "\t|3. Them sach tu ban phim |" << endl;
     cout << "\t|4. Xem chi tiet sach     |" << endl;
     cout << "\t|5. Danh sach phan loai   |" << endl;
-    cout << "\t|6. Danh sach trang thai  |" << endl;
-    cout << "\t|7. Xoa sach              |" << endl;
-    cout << "\t|8. Xoa danh sach         |" << endl;
+    cout << "\t|6. Xoa sach              |" << endl;
+    cout << "\t|7. Xoa danh sach         |" << endl;
     cout << "\t|  0. THOAT               |" << endl;
     cout << "\t+-------------------------+" << endl;
 }
