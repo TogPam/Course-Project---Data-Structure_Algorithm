@@ -89,17 +89,21 @@ void display_Book_list(List ls)
     }
     aBook_node *p = ls.head_Book;
     int i = 0;
-    cout << "                                                           DANH SACH BOOKS\n";
-    cout << "+-------------------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "                                                                             DANH SACH BOOKS\n";
+    cout << "+-----------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
     cout << "|STT|\n";
     while (p != NULL)
     {
-        cout << "|" << i << " | " << p->info.name_book << "___TAC GIA: " << p->info.author << " ___LOAI: " << p->info.type << " __NHA XB: " << p->info.publishing_company << "__NXB: " << p->info.publishing_year << endl;
+        cout << "|" << setw(3) << left << i << "| " << setw(40) << left << p->info.name_book
+             << "TAC GIA: " << setw(22) << left << p->info.author
+             << "LOAI: " << setw(15) << left << p->info.type
+             << "NHA XB: " << setw(27) << left << p->info.publishing_company
+             << "NXB: " << setw(12) << left << p->info.publishing_year << "|" << endl;
         p->info.stt = i;
         i++;
         p = p->next;
     }
-    cout << "+-------------------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "+------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
 }
 
 int count_Books_inList(List ls)
@@ -305,20 +309,26 @@ void delete_aBookNode(List &ls, int stt)
 void displayBook_baseType(List ls, string type)
 {
     aBook_node *p = ls.head_Book;
-    cout << "                                                           DANH SACH BOOKS\n";
-    cout << "+-------------------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "                                                                             DANH SACH BOOKS\n";
+    cout << "+------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
+
     cout << "|STT|\n";
     while (p != NULL)
     {
         if (p->info.type == type)
         {
-            cout << "|" << p->info.stt << " | " << p->info.name_book << "___TAC GIA: " << p->info.author << " ___NAM XB: " << p->info.publishing_year << " __NXB: " << p->info.publishing_company << endl;
+            cout << "|" << setw(3) << left << p->info.stt << "| " << setw(40) << left << p->info.name_book
+                 << "TAC GIA: " << setw(22) << left << p->info.author
+                 << "LOAI: " << setw(15) << left << p->info.type
+                 << "NHA XB: " << setw(27) << left << p->info.publishing_company
+                 << "NXB: " << setw(12) << left << p->info.publishing_year << "|" << endl;
+            p = p->next;
         }
-        p = p->next;
+        else
+            return;
+        cout << "+------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
     }
-    cout << "+-------------------------------------------------------------------------------------------------------------------+" << endl;
 }
-
 void menu();
 int main()
 {
