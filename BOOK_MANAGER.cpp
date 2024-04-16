@@ -288,6 +288,32 @@ void listToFile(List &ls)
     fileBook.close();
 }
 
+<<<<<<< HEAD
+=======
+// void delete_aBookNode(List &ls, aBook_node *a)
+// {
+//     if (isEmpty_List_Book(ls))
+//         return;
+//     if (a == ls.head_Book)
+//     {
+//         deleteHead(ls);
+//         return;
+//     }
+//     if (a == ls.tail_Book)
+//     {
+//         deleteTail(ls);
+//         return;
+//     }
+//     else
+//     {
+
+//         deleteP(ls, a);
+//         return;
+//     }
+//     listToFile(ls);
+// }
+
+>>>>>>> main
 void displayBook_baseType(List ls, string type)
 {
     aBook_node *p = ls.head_Book;
