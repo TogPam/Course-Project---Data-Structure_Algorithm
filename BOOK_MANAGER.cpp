@@ -89,19 +89,20 @@ void display_Book_list(List ls)
     aBook_node *p = ls.head_Book;
     int i = 0;
     cout << "                                                                             DANH SACH BOOKS\n";
-    cout << "+-----------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
-    cout << "|STT|\n";
+    cout << "+--------------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "|STT|                                                                                                                                                          |\n";
     while (p != NULL)
     {
         cout << "|" << setw(3) << right << i << "| " << setw(40) << left << p->info.name_book
+             << "MA: " << setw(7) << left << p->info.code
              << "TAC GIA: " << setw(22) << left << p->info.author
              << "LOAI: " << setw(15) << left << p->info.type
              << "NHA XB: " << setw(27) << left << p->info.publishing_company
-             << "NXB: " << setw(12) << left << p->info.publishing_year << "|" << endl;
+             << "NXB: " << setw(10) << left << p->info.publishing_year << "|" << endl;
         i++;
         p = p->next;
     }
-    cout << "+------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "+--------------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
 }
 
 int count_Books_inList(List ls)
@@ -321,14 +322,18 @@ void swap(Book &a, Book &b)
     b = temp;
 }
 
-// void sort_baseType_andCode(List &ls)
-// {
-//     aBook_node *p = ls.head_Book;
-//     for (p, p != NULL; p = p->next)
-//     {
-
-//     }
-// }
+void sort_baseType_andCode(List &ls)
+{
+    aBook_node *p = ls.head_Book;
+    for (p; p != NULL; p = p->next)
+    {
+        for (aBook_node *pp = p->next; pp != NULL; pp = pp->next)
+        {
+            if (p->info.code > pp->info.code)
+                swap(p->info, pp->info);
+        }
+    }
+}
 
 void menu();
 int main()
@@ -448,36 +453,7 @@ int main()
         {
             if (!isEmpty_List_Book(ls))
             {
-                cout << "\n\t1.Tieu Thuyet\n";
-                cout << "\t2.Hoc Thuat\n";
-                cout << "\t3.Self-help\n";
-                cout << "\t4.Gia Tuong\n\n";
-                int t;
-                cout << "\t\t(?)Chon: ";
-                cin >> t;
-                switch (t)
-                {
-                case 1:
-                {
-                    displayBook_baseType(ls, "Tieu Thuyet");
-                    break;
-                }
-                case 2:
-                {
-                    displayBook_baseType(ls, "Hoc Thuat");
-                    break;
-                }
-                case 3:
-                {
-                    displayBook_baseType(ls, "Self-help");
-                    break;
-                }
-                case 4:
-                {
-                    displayBook_baseType(ls, "Gia Tuong");
-                    break;
-                }
-                }
+                sort_baseType_andCode(ls);
             }
             system("pause");
             break;
@@ -491,7 +467,6 @@ int main()
             display_Book_list(ls);
             if (!isEmpty_List_Book(ls))
             {
-
                 int stt;
                 cout << "\n\t(*)LUU Y: VIEC XOA SACH SE ANH HUONG DEN FILE\n";
                 cout << "\n\t(?)STT SACH MUON XOA: ";
@@ -515,7 +490,7 @@ void menu()
     cout << "\t|2. Them SACH tu FILE            |" << endl;
     cout << "\t|3. Them SACH tu ban phim        |" << endl;
     cout << "\t|4. Them/Xoa SACH tai vi tri     |" << endl;
-    cout << "\t|5. Danh SACH phan loai          |" << endl;
+    cout << "\t|5. Sap xep theo loai va ma      |" << endl;
     cout << "\t|6. Xoa SACH                     |" << endl;
     cout << "\t|7. Xoa danh SACH                |" << endl;
     cout << "\t|  0. THOAT                      |" << endl;
