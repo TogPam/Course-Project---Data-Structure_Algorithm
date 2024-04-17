@@ -225,7 +225,7 @@ void deleteTail(List &ls)
         return;
     }
     aBook_node *p = ls.head_Book;
-    while (p != ls.tail_Book)
+    while (p->next != ls.tail_Book)
     {
         p = p->next;
     }
