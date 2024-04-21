@@ -282,6 +282,7 @@ void listToFile(List &ls)
             fileBook << a->info.code << endl;
             fileBook << a->info.type << endl;
             fileBook << a->info.publishing_year << endl;
+            fileBook.ignore();
             fileBook << a->info.publishing_company << endl;
         }
         a = a->next;
@@ -289,37 +290,24 @@ void listToFile(List &ls)
     fileBook.close();
 }
 
-void displayBook_baseType(List ls, string type)
-{
-    aBook_node *p = ls.head_Book;
-    cout << "                                                                             DANH SACH BOOKS\n";
-    cout << "+------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
-
-    cout << "|STT|\n";
-    int i = 0;
-    while (p != NULL)
-    {
-        if (p->info.type == type)
-        {
-            cout << "|" << setw(3) << left << i << "| " << setw(40) << left << p->info.name_book
-                 << "TAC GIA: " << setw(22) << left << p->info.author
-                 << "LOAI: " << setw(15) << left << p->info.type
-                 << "NHA XB: " << setw(27) << left << p->info.publishing_company
-                 << "NXB: " << setw(12) << left << p->info.publishing_year << "|" << endl;
-            p = p->next;
-            i++;
-        }
-        else
-            return;
-        cout << "+------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
-    }
-}
-
 void swap(Book &a, Book &b)
 {
     Book temp = a;
     a = b;
     b = temp;
+}
+
+void parrtition(List &ls)
+{
+    aBook_node *p = ls.head_Book;
+    string type = p->info.type;
+    int count = 0;
+    while (p != NULL)
+    {
+        if (type == p->info.type)
+            count++;
+        p = p->next;
+    }
 }
 
 void sort_baseType_andCode(List &ls)
@@ -333,6 +321,7 @@ void sort_baseType_andCode(List &ls)
                 swap(p->info, pp->info);
         }
     }
+    parrtition(ls);
 }
 
 void menu();
@@ -357,21 +346,32 @@ int main()
         }
         case 2:
         {
-            input_info_BookList_byFile(ls);
-            cout << "\n\tDa them danh sach tu FILE\n";
-            display_Book_list(ls);
-            cout << "\n\tCo " << count_Books_inList(ls) << " cuon sach" << endl;
+            int c;
+            cout << "\n\n\t1. FILE\n";
+            cout << "\t2. Ban Phim\n";
+            cout << "\n\tChon: ";
+            cin >> c;
+            switch (c)
+            {
+            case 1:
+            {
+                input_info_BookList_byFile(ls);
+                cout << "\n\tDa them danh sach tu FILE\n";
+                display_Book_list(ls);
+                cout << "\n\tCo " << count_Books_inList(ls) << " cuon sach" << endl;
+                break;
+            }
+            case 2:
+            {
+                Book a;
+                add_abook_intoFile_List(ls, a);
+                break;
+            }
+            }
             system("pause");
             break;
         }
         case 3:
-        {
-            Book a;
-            add_abook_intoFile_List(ls, a);
-            system("pause");
-            break;
-        }
-        case 4:
         {
             display_Book_list(ls);
             int chon;
@@ -449,29 +449,12 @@ int main()
             system("pause");
             break;
         }
-        case 5:
+        case 4:
         {
             if (!isEmpty_List_Book(ls))
             {
                 sort_baseType_andCode(ls);
-            }
-            system("pause");
-            break;
-        }
-        case 7:
-        {
-            break;
-        }
-        case 6:
-        {
-            display_Book_list(ls);
-            if (!isEmpty_List_Book(ls))
-            {
-                int stt;
-                cout << "\n\t(*)LUU Y: VIEC XOA SACH SE ANH HUONG DEN FILE\n";
-                cout << "\n\t(?)STT SACH MUON XOA: ";
-                cin >> stt;
-                // delete_aBookNode(ls, stt);
+                display_Book_list(ls);
             }
             system("pause");
             break;
@@ -484,15 +467,18 @@ int main()
 
 void menu()
 {
-    cout << "\n\t         BOOK MANAGER" << endl;
-    cout << "\t+--------------------------------+" << endl;
-    cout << "\t|1. Xem danh SACH                |" << endl;
-    cout << "\t|2. Them SACH tu FILE            |" << endl;
-    cout << "\t|3. Them SACH tu ban phim        |" << endl;
-    cout << "\t|4. Them/Xoa SACH tai vi tri     |" << endl;
-    cout << "\t|5. Sap xep theo loai va ma      |" << endl;
-    cout << "\t|6. Xoa SACH                     |" << endl;
-    cout << "\t|7. Xoa danh SACH                |" << endl;
-    cout << "\t|  0. THOAT                      |" << endl;
-    cout << "\t+--------------------------------+" << endl;
+    cout << "\n\t\t\t\t              BOOK MANAGER" << endl;
+    cout << "\t+----------------------------------------------------------------------------------+" << endl;
+    cout << "\t|1. Xem danh SACH                                                                  |" << endl;
+    cout << "\t|2. Them SACH (File, ban phim)                                                     |" << endl;
+    cout << "\t|3. Them/Xoa SACH tai vi tri                                                       |" << endl;
+    cout << "\t|4. Sap xep theo loai va ma                                                        |" << endl;
+    cout << "\t|5. Them sach x vao danh sach da sap xep                                           |" << endl;
+    cout << "\t|6. Thong ke sach trong NXB cua tac gia                                            |" << endl;
+    cout << "\t|7. NXB co it sach nhat                                                            |" << endl;
+    cout << "\t|8. Thong ke sach theo nam cua tung NXB                                            |" << endl;
+    cout << "\t|9. Dem so luong sach theo the loai                                                |" << endl;
+    cout << "\t|10.Xuat thong tin sach co chua chuoi `lap trinh` do NXB DHQG va NXB KHKT xuat ban |" << endl;
+    cout << "\t|  0. THOAT                                                                        |" << endl;
+    cout << "\t+----------------------------------------------------------------------------------+" << endl;
 }
