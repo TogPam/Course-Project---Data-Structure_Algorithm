@@ -87,22 +87,22 @@ void display_Book_list(List ls)
         return;
     }
     aBook_node *p = ls.head_Book;
-    int i = 0;
+    int i = 1;
     cout << "                                                                             DANH SACH BOOKS\n";
-    cout << "+--------------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
-    cout << "|STT|                                                                                                                                                          |\n";
+    cout << "+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "|STT|                                                                                                                                                                    |\n";
     while (p != NULL)
     {
         cout << "|" << setw(3) << right << i << "| " << setw(40) << left << p->info.name_book
-             << "MA: " << setw(7) << left << p->info.code
-             << "TAC GIA: " << setw(22) << left << p->info.author
-             << "LOAI: " << setw(15) << left << p->info.type
-             << "NHA XB: " << setw(27) << left << p->info.publishing_company
-             << "NXB: " << setw(10) << left << p->info.publishing_year << "|" << endl;
+             << "| MA: " << setw(7) << left << p->info.code
+             << "| TAC GIA: " << setw(22) << left << p->info.author
+             << "| LOAI: " << setw(15) << left << p->info.type
+             << "| NHA XB: " << setw(27) << left << p->info.publishing_company
+             << "| NXB: " << setw(10) << left << p->info.publishing_year << "|" << endl;
         i++;
         p = p->next;
     }
-    cout << "+--------------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
 }
 
 int count_Books_inList(List ls)
@@ -147,7 +147,7 @@ void add_BooksAtK(List &ls, int stt, Book b)
 {
     aBook_node *q = getBook(b);
     aBook_node *p = ls.head_Book;
-    while (stt != 1)
+    while (stt != 2)
     {
         p = p->next;
         stt--;
@@ -251,7 +251,7 @@ void deleteP(List &ls, int stt)
         return;
     }
     aBook_node *p = ls.head_Book;
-    while (stt != 1)
+    while (stt != 2)
     {
         p = p->next;
         stt--;
@@ -261,6 +261,18 @@ void deleteP(List &ls, int stt)
     temp->next = NULL;
     delete temp;
     return;
+}
+
+void deleteNodeinList(List &ls, aBook_node *p)
+{
+    aBook_node *a = ls.head_Book;
+    while (a->next != p)
+    {
+        a = a->next;
+    }
+    a->next = p->next;
+    p->next = NULL;
+    delete p;
 }
 
 void listToFile(List &ls)
@@ -297,20 +309,7 @@ void swap(Book &a, Book &b)
     b = temp;
 }
 
-void parrtition(List &ls)
-{
-    aBook_node *p = ls.head_Book;
-    string type = p->info.type;
-    int count = 0;
-    while (p != NULL)
-    {
-        if (type == p->info.type)
-            count++;
-        p = p->next;
-    }
-}
-
-void sort_baseType_andCode(List &ls)
+void linearSort_code(List &ls)
 {
     aBook_node *p = ls.head_Book;
     for (p; p != NULL; p = p->next)
@@ -321,7 +320,43 @@ void sort_baseType_andCode(List &ls)
                 swap(p->info, pp->info);
         }
     }
-    parrtition(ls);
+}
+
+unordered_map<string, int> countCategories(aBook_node *head)
+{
+    unordered_map<string, int> categoryCount;
+
+    aBook_node *current = head;
+    while (current != nullptr)
+    {
+        categoryCount[current->info.type]++;
+        current = current->next;
+    }
+    int type = categoryCount.size();
+    return categoryCount;
+}
+
+void sort_baseType_andCode(List &ls)
+{
+    linearSort_code(ls);
+    List a;
+    initBook_List(a);
+    aBook_node *pp = ls.head_Book;
+    unordered_map<string, int> categoryCount = countCategories(pp);
+    for (auto it = categoryCount.begin(); it != categoryCount.end(); ++it)
+    {
+        // cout << it->first << ": " << it->second << endl;
+        aBook_node *p = ls.head_Book;
+        while (p != NULL)
+        {
+            if (p->info.type == it->first)
+            {
+                add_BooksTail(a, p->info);
+            }
+            p = p->next;
+        }
+    }
+    ls = a;
 }
 
 void menu();
@@ -457,6 +492,11 @@ int main()
                 display_Book_list(ls);
             }
             system("pause");
+            break;
+        }
+        case 6:
+        {
+
             break;
         }
         }
