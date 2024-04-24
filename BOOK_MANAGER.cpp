@@ -322,34 +322,27 @@ void linearSort_code(List &ls)
     }
 }
 
-unordered_map<string, int> countCategories(aBook_node *head)
-{
-    unordered_map<string, int> categoryCount;
-
-    aBook_node *current = head;
-    while (current != nullptr)
-    {
-        categoryCount[current->info.type]++;
-        current = current->next;
-    }
-    int type = categoryCount.size();
-    return categoryCount;
-}
-
 void sort_baseType_andCode(List &ls)
 {
     linearSort_code(ls);
     List a;
     initBook_List(a);
+    unordered_map<string, int> typeCount;
+
     aBook_node *pp = ls.head_Book;
-    unordered_map<string, int> categoryCount = countCategories(pp);
-    for (auto it = categoryCount.begin(); it != categoryCount.end(); ++it)
+    while (pp != NULL)
+    {
+        typeCount[pp->info.type]++;
+        pp = pp->next;
+    }
+
+    for (auto it : typeCount)
     {
         // cout << it->first << ": " << it->second << endl;
         aBook_node *p = ls.head_Book;
         while (p != NULL)
         {
-            if (p->info.type == it->first)
+            if (p->info.type == it.first)
             {
                 add_BooksTail(a, p->info);
             }
@@ -357,6 +350,31 @@ void sort_baseType_andCode(List &ls)
         }
     }
     ls = a;
+}
+
+void minBookByAuthor(List ls)
+{
+    aBook_node *p = ls.head_Book;
+    unordered_map<string, int> count;
+    string res;
+    while (p != NULL)
+    {
+        count[p->info.publishing_company]++;
+        p = p->next;
+    }
+    int min = count.begin()->second;
+    for (auto it : count)
+    {
+        if (it.second < min)
+        {
+            min = it.second;
+            res = it.first;
+        }
+    }
+    if (res == "")
+        cout << "Khong co sach nao it nhat\n";
+    else
+        cout << res << ": " << min << endl;
 }
 
 void menu();
@@ -494,9 +512,23 @@ int main()
             system("pause");
             break;
         }
+        case 5:
+        {
+            Book a;
+            a.input_info_aBook();
+            add_BooksTail(ls, a);
+            sort_baseType_andCode(ls);
+            break;
+        }
         case 6:
         {
 
+            break;
+        }
+        case 7:
+        {
+            minBookByAuthor(ls);
+            system("pause");
             break;
         }
         }
