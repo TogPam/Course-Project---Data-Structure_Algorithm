@@ -377,6 +377,26 @@ void minBookByAuthor(List ls)
         cout << res << ": " << min << endl;
 }
 
+void thongKeSachTheoNXBCuaTacGia(List ls)
+{
+    unordered_map<string, unordered_map<string, int>> count;
+    aBook_node *p = ls.head_Book;
+    while (p != NULL)
+    {
+        count[p->info.author][p->info.publishing_company]++;
+        p = p->next;
+    }
+
+    for (auto it : count)
+    {
+        cout << "Tac gia: " << it.first;
+        for (auto itt : it.second)
+        {
+            cout << " co " << itt.second << " cuon sach o " << itt.first << endl;
+        }
+    }
+}
+
 void menu();
 int main()
 {
@@ -522,7 +542,8 @@ int main()
         }
         case 6:
         {
-
+            thongKeSachTheoNXBCuaTacGia(ls);
+            system("pause");
             break;
         }
         case 7:
@@ -531,6 +552,11 @@ int main()
             system("pause");
             break;
         }
+        case 8:
+        {
+        }
+        default:
+            break;
         }
         system("cls");
     } while (c != 0);
@@ -548,7 +574,7 @@ void menu()
     cout << "\t|5. Them sach x vao danh sach da sap xep                                           |" << endl;
     cout << "\t|6. Thong ke sach trong NXB cua tac gia                                            |" << endl;
     cout << "\t|7. NXB co it sach nhat                                                            |" << endl;
-    cout << "\t|8. Thong ke sach theo nam cua tung NXB                                            |" << endl;
+    cout << "\t|8. Thong ke sach theo tung nam cua tung NXB                                       |" << endl;
     cout << "\t|9. Dem so luong sach theo the loai                                                |" << endl;
     cout << "\t|10.Xuat thong tin sach co chua chuoi `lap trinh` do NXB DHQG va NXB KHKT xuat ban |" << endl;
     cout << "\t|  0. THOAT                                                                        |" << endl;

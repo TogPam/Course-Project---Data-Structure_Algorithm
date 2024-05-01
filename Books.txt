@@ -11,7 +11,7 @@ Tieu Thuyet
 1955
 Nha Nam Company
 Data structure and Algorithm
-Stephen Hawking
+Victor Hugo
 789
 Hoc Thuat
 2018
@@ -27,15 +27,15 @@ William B.Irvine
 749
 Hoc Thuat
 2019
-Nha Nam
+Nha Nam Company
 Pride and Prejudice
 Jane Austen
 888
 Tieu Thuyet
 1888
-Nha Nam
+Nha Nam Company
 Clean Code
-"Robert C. Martin
+Victor Hugo
 799
 Hoc Thuat
 2008
