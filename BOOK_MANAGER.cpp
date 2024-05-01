@@ -397,6 +397,41 @@ void thongKeSachTheoNXBCuaTacGia(List ls)
     }
 }
 
+void thongKeSachTheoTungNamCuaTungNXB(List ls)
+{
+    unordered_map<int, unordered_map<string, int>> thongke;
+    aBook_node *p = ls.head_Book;
+
+    while (p != NULL)
+    {
+        thongke[p->info.publishing_year][p->info.publishing_company]++;
+        p = p->next;
+    }
+    for (auto it : thongke)
+    {
+        cout << it.first << ": " << endl;
+        for (auto itt : it.second)
+        {
+            cout << itt.first << "co: " << itt.second << " cuon sach " << endl;
+        }
+    }
+}
+
+void soLuongSachTheoTheLoai(List ls)
+{
+    unordered_map<string, int> count;
+    aBook_node *p = ls.head_Book;
+    while (p != NULL)
+    {
+        count[p->info.type]++;
+        p = p->next;
+    }
+    for (auto it : count)
+    {
+        cout << it.first << "co " << it.second << " cuon sach!" << endl;
+    }
+}
+
 void menu();
 int main()
 {
@@ -554,6 +589,15 @@ int main()
         }
         case 8:
         {
+            thongKeSachTheoTungNamCuaTungNXB(ls);
+            system("pause");
+            break;
+        }
+        case 9:
+        {
+            soLuongSachTheoTheLoai(ls);
+            system("pause");
+            break;
         }
         default:
             break;
