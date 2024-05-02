@@ -79,7 +79,7 @@ bool isEmpty_List_Book(List ls)
     return ls.head_Book == NULL ? true : false;
 }
 
-void display_Book_list(List ls)
+void duyetList(List ls)
 {
     if (isEmpty_List_Book(ls))
     {
@@ -105,7 +105,7 @@ void display_Book_list(List ls)
     cout << "+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
 }
 
-int count_Books_inList(List ls)
+int demSachTrongList(List ls)
 {
     int c = 0;
     aBook_node *p = ls.head_Book;
@@ -157,7 +157,7 @@ void add_BooksAtK(List &ls, int stt, Book b)
     return;
 }
 
-void input_info_BookList_byFile(List &ls)
+void inputBookByFile(List &ls)
 {
     if (!isEmpty_List_Book(ls))
     {
@@ -185,7 +185,7 @@ void input_info_BookList_byFile(List &ls)
     fileBook.close();
 }
 
-void add_abook_intoFile_List(List &ls, Book a)
+void themBookNodeVaoFileList(List &ls, Book a)
 {
 
     a.input_info_aBook();
@@ -245,7 +245,7 @@ void deleteP(List &ls, int stt)
         deleteHead(ls);
         return;
     }
-    if (stt == count_Books_inList(ls))
+    if (stt == demSachTrongList(ls))
     {
         deleteTail(ls);
         return;
@@ -263,7 +263,7 @@ void deleteP(List &ls, int stt)
     return;
 }
 
-void deleteNodeinList(List &ls, aBook_node *p)
+void xoaBookNodeTrongList(List &ls, aBook_node *p)
 {
     aBook_node *a = ls.head_Book;
     while (a->next != p)
@@ -282,7 +282,7 @@ void swap(Book &a, Book &b)
     b = temp;
 }
 
-void linearSort_code(List &ls)
+void sapXepTuyenTinh(List &ls)
 {
     aBook_node *p = ls.head_Book;
     for (p; p != NULL; p = p->next)
@@ -295,9 +295,9 @@ void linearSort_code(List &ls)
     }
 }
 
-void sort_baseType_andCode(List &ls)
+void sapXepTheoLoaiVaMa(List &ls)
 {
-    linearSort_code(ls);
+    sapXepTuyenTinh(ls);
     List a;
     initBook_List(a);
     unordered_map<string, int> typeCount;
@@ -386,7 +386,7 @@ void thongKeSachTheoTungNamCuaTungNXB(List ls)
         cout << it.first << ": " << endl;
         for (auto itt : it.second)
         {
-            cout << itt.first << "co: " << itt.second << " cuon sach " << endl;
+            cout << itt.first << " co: " << itt.second << " cuon sach " << endl;
         }
     }
 }
@@ -402,7 +402,7 @@ void soLuongSachTheoTheLoai(List ls)
     }
     for (auto it : count)
     {
-        cout << it.first << "co " << it.second << " cuon sach!" << endl;
+        cout << it.first << " co " << it.second << " cuon sach!" << endl;
     }
 }
 
@@ -442,8 +442,8 @@ int main()
         {
         case 1:
         {
-            display_Book_list(ls);
-            cout << "\n\tCo " << count_Books_inList(ls) << " cuon sach" << endl;
+            duyetList(ls);
+            cout << "\n\tCo " << demSachTrongList(ls) << " cuon sach" << endl;
             system("pause");
             break;
         }
@@ -458,16 +458,16 @@ int main()
             {
             case 1:
             {
-                input_info_BookList_byFile(ls);
+                inputBookByFile(ls);
                 cout << "\n\tDa them danh sach tu FILE\n";
-                display_Book_list(ls);
-                cout << "\n\tCo " << count_Books_inList(ls) << " cuon sach" << endl;
+                duyetList(ls);
+                cout << "\n\tCo " << demSachTrongList(ls) << " cuon sach" << endl;
                 break;
             }
             case 2:
             {
                 Book a;
-                add_abook_intoFile_List(ls, a);
+                themBookNodeVaoFileList(ls, a);
                 break;
             }
             }
@@ -476,7 +476,7 @@ int main()
         }
         case 3:
         {
-            display_Book_list(ls);
+            duyetList(ls);
             int chon;
             cout << "\n\t1.Them\n";
             cout << "\t2.Xoa\n";
@@ -556,8 +556,8 @@ int main()
         {
             if (!isEmpty_List_Book(ls))
             {
-                sort_baseType_andCode(ls);
-                display_Book_list(ls);
+                sapXepTheoLoaiVaMa(ls);
+                duyetList(ls);
             }
             system("pause");
             break;
@@ -567,7 +567,7 @@ int main()
             Book a;
             a.input_info_aBook();
             add_BooksTail(ls, a);
-            sort_baseType_andCode(ls);
+            sapXepTheoLoaiVaMa(ls);
             break;
         }
         case 6:
@@ -610,7 +610,7 @@ int main()
 
 void menu()
 {
-    cout << "\n\t\t\t\t\t              BOOK MANAGER" << endl;
+    cout << "\n\t\t\t\t                 BOOK MANAGER" << endl;
     cout << "\t+-------------------------------------------------------------------------------------------+" << endl;
     cout << "\t|1. Xem danh SACH                                                                           |" << endl;
     cout << "\t|2. Them SACH (File, ban phim)                                                              |" << endl;
